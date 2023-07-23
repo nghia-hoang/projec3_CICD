@@ -222,7 +222,7 @@ jobs:
       - run:
           name: install aws aws-cli
           command: |
-            sudo apt -y install awscli
+            npm install -g aws-cli
       # - run:
       #     name: "Install-dependencies"
       #     command: |
