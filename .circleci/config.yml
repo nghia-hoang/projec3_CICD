@@ -215,21 +215,21 @@ jobs:
 
   deploy-frontend:
     docker:
-     - image: amazon/aws-cli
+     - image: circleci/node:13.8.0
+       user: root
     steps:
       - checkout
       - run:
-          name: Install tar/gzip utility
+          name: install aws aws-cli
           command: |
-            yum -y install tar
-            yum -y install gzip
-      - run:
-          name: "Install-dependencies"
-          command: |
-            sudo apt-get update && sudo apt-get install sudo
-            # sudo apt update
-            sudo apt install nodejs=13.8.0
-            node -v
+            apt -y install awscli
+      # - run:
+      #     name: "Install-dependencies"
+      #     command: |
+      #       sudo apt-get update && sudo apt-get install sudo
+      #       # sudo apt update
+      #       sudo apt install nodejs=13.8.0
+      #       node -v
       - run:
           name: "Get-backend-url"
           command: |
