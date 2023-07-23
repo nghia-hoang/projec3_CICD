@@ -142,12 +142,12 @@ jobs:
       - run:
           name: "Ensure-back-end-infrastructure-exists"
           command: |
-            aws cloudformation describe-stack-events
-            # aws cloudformation deploy \
-            #   --template-file .circleci/files/backend.yml \
-            #   --tags project=udapeople \
-            #   --stack-name "udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}"  \
-            #   --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"  
+            # aws cloudformation describe-stack-events
+            aws cloudformation deploy \
+              --template-file .circleci/files/backend.yml \
+              --tags project=udapeople \
+              --stack-name udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}  \
+              --parameter-overrides ID=${CIRCLE_WORKFLOW_ID:0:7}  
               # exit 1
       - run:
           name: "Ensure-front-end-infrastructure-exist"
@@ -155,14 +155,14 @@ jobs:
             aws cloudformation deploy \
               --template-file .circleci/files/frontend.yml \
               --tags project=udapeople \
-              --stack-name "udapeople-front-end-${CIRCLE_WORKFLOW_ID:0:7}"" \
-              --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"  
+              --stack-name udapeople-front-end-${CIRCLE_WORKFLOW_ID:0:7} \
+              --parameter-overrides ID=${CIRCLE_WORKFLOW_ID:0:7}  
               # exit 1
       - run:
           name: "Add-back-end-ip-to-ansible-inventory"
           command: |
             # Fetch the public IP of the EC2 instance
-            EC2_PUBLIC_IP=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=your-instance-name" --query "Reservations[].Instances[].PublicIpAddress" --output text)
+            EC2_PUBLIC_IP=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=backend-web" --query "Reservations[].Instances[].PublicIpAddress" --output text)
 
             # Append the IP to the inventory.txt file
             echo "your-instance-name ansible_host=$EC2_PUBLIC_IP ansible_user=ubuntu" >> .circleci/ansible/inventory.txt
