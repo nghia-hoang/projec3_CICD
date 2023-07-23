@@ -223,6 +223,7 @@ jobs:
           name: install aws aws-cli
           command: |
             npm install -g aws-cli
+            aws configure list
       # - run:
       #     name: "Install-dependencies"
       #     command: |
