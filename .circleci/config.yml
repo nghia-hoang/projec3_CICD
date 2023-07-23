@@ -226,8 +226,9 @@ jobs:
       - run:
           name: "Install-dependencies"
           command: |
+            sudo apt-get update && sudo apt-get install sudo
             # sudo apt update
-            yum apt install nodejs=13.8.0
+            sudo apt install nodejs=13.8.0
             node -v
       - run:
           name: "Get-backend-url"
