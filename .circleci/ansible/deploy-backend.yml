@@ -26,7 +26,7 @@
       command: pm2 stop default
 
     - name: Start the server using PM2
-      command: pm2 start npm -- start
+      command: pm2 start npm -- start --port 3030
   roles:
     - deploy
         
