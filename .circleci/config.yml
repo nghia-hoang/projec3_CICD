@@ -318,8 +318,7 @@ jobs:
           name: "Install-dependencies"
           command: |
             # your code here
-            apk add --update curl nodejs npm
-            pip install awscli
+            apk add --update --no-cache curl aws-cli nodejs npm
       - run:
           name: "Backend smoke test."
           command: |
