@@ -169,13 +169,12 @@ jobs:
             # echo "your-instance-name ansible_host=$EC2_PUBLIC_IP ansible_user=ubuntu" >> .circleci/ansible/inventory.txt
             cat .circleci/ansible/inventory.txt
             # Persist the modified inventory file to the workspace
-            cp .circleci/ansible/inventory.txt $HOME/workspace/inventory.txt
+            # cp .circleci/ansible/inventory.txt $HOME/workspace/inventory.txt
             # # exit 1
       - persist_to_workspace:
-          root: ~/
+          root: .circleci/
           paths:
-            # - project/.circleci/ansible/inventory.txt
-            - project/backend
+            - ansible/inventory.txt
       - destroy-environment
       # Here's where you will add some code to rollback on failure      
 
