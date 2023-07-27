@@ -294,17 +294,18 @@ jobs:
           name: "Install-dependencies"
           command: |
             # your code here
-            # apk add --update ansible curl rsync openssh nodejs npm
-            # ansible --version
-            # pip install awscli
-            # aws --version
-            apk add --update --no-cache tar gzip nodejs npm aws-cli ansible
+            apk add --update ansible curl rsync openssh nodejs npm
+            ansible --version
+            pip install awscli
+            aws --version
+            npm --version
+            # apk add --update --no-cache tar gzip nodejs npm aws-cli ansible
       - run:
           name: "Deploy-backend"
           command: |
             # your code here
             cd backend
-            npm i
+            npm install
             npm run build
             cd ..
             tar -C backend -czvf artifact.tar.gz .
@@ -351,7 +352,7 @@ jobs:
              else
                  return 1
              fi
-      # - destroy-environment 
+      - destroy-environment 
  
   # cloudfront-update:
   #   docker:
