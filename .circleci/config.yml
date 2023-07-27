@@ -165,7 +165,7 @@ jobs:
             EC2_PUBLIC_IP=$(aws ec2 describe-instances --filters "Name=tag:project,Values=udapeople" --query "Reservations[*].Instances[*].PublicIpAddress" --output text)
 
             # Append the IP to the inventory.txt file
-            echo "$EC2_PUBLIC_IP" >> ~/project/.circleci/ansible/inventory.txt
+            echo $EC2_PUBLIC_IP >> ~/project/.circleci/ansible/inventory.txt
             # echo "your-instance-name ansible_host=$EC2_PUBLIC_IP ansible_user=ubuntu" >> .circleci/ansible/inventory.txt
             cat ~/project/.circleci/ansible/inventory.txt
             # Persist the modified inventory file to the workspace
