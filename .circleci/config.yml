@@ -294,10 +294,11 @@ jobs:
           name: "Install-dependencies"
           command: |
             # your code here
-            apk add --update ansible curl rsync openssh nodejs npm
-            ansible --version
-            pip install awscli
-            aws --version
+            # apk add --update ansible curl rsync openssh nodejs npm
+            # ansible --version
+            # pip install awscli
+            # aws --version
+            apk add --update --no-cache tar gzip nodejs npm aws-cli ansible
       - run:
           name: "Deploy-backend"
           command: |
