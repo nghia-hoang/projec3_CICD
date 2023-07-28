@@ -6,22 +6,22 @@
     state: latest
     update_cache: yes
 
-- name: Copy backend dist files to remote server
-  copy:
-    src: /root/project/backend
-    dest: /home/ubuntu
+# - name: Copy backend dist files to remote server
+#   copy:
+#     src: /root/project/backend
+#     dest: /home/ubuntu
 
-- name: Install Node modules
-  shell: |
-    cd /home/ubuntu/backend
-    npm install
-    npm install --only=dev
+# - name: Install Node modules
+#   shell: |
+#     cd /home/ubuntu/backend
+#     npm install
+#     npm install --only=dev
     
-- name: Building backend service
-  shell: |
-    cd /home/ubuntu/backend
-    npm run build
-    npm run prestart:prod
+# - name: Building backend service
+#   shell: |
+#     cd /home/ubuntu/backend
+#     npm run build
+#     npm run prestart:prod
         
 - name: Executing node
   become: true
@@ -32,7 +32,7 @@
 - name: Building node service
   shell: |
     cd /home/ubuntu/backend
-    npm run build
+    # npm run build
     npm run prestart:prod
     
 - name: start pm2 for dist/main.js
