@@ -317,7 +317,6 @@ jobs:
             pwd
             ls
             npm install
-            npm audit fix --force
             npm run build
             # cd ..
             # tar -C backend -czvf artifact.tar.gz .
