@@ -287,7 +287,7 @@ jobs:
     docker:
      - image: python:3.7-alpine3.16
     env:
-      CIRCLE_JOB_TIMEOUT: 30 
+      CIRCLE_JOB_TIMEOUT: 10 
     steps:
       - checkout
       - add_ssh_keys:
