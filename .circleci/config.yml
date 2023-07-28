@@ -295,10 +295,10 @@ jobs:
           name: "Install-dependencies"
           command: |
             # your code here
-            apk add --update ansible
-            apk add --update tar gzip curl
-            apk add --update openssh-client
-            # apk add --update ansible curl rsync openssh nodejs npm
+            # apk add --update ansible
+            # apk add --update tar gzip curl
+            # apk add --update openssh-client
+            apk add --update ansible curl rsync openssh nodejs npm
             # ansible --version
             # pip install awscli
             # aws --version
