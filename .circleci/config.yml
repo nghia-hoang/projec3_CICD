@@ -318,14 +318,14 @@ jobs:
             ls
             npm install
             npm run build
-            # cd ..
-            # tar -C backend -czvf artifact.tar.gz .
-            # mkdir -p ~/project/.circleci/ansible/roles/deploy/files/
-            # mv artifact.tar.gz ~/project/.circleci/ansible/roles/deploy/files/artifact.tar.gz
-            # cd ~/project/.circleci/ansible
-            # echo "Contents  of the inventory.txt file is -------"
-            # cat inventory.txt
-            # ansible-playbook -i inventory.txt deploy-backend.yml
+            cd ..
+            tar -C backend -czvf artifact.tar.gz .
+            mkdir -p ~/project/.circleci/ansible/roles/deploy/files/
+            mv artifact.tar.gz ~/project/.circleci/ansible/roles/deploy/files/artifact.tar.gz
+            cd ~/project/.circleci/ansible
+            echo "Contents  of the inventory.txt file is -------"
+            cat inventory.txt
+            ansible-playbook -i inventory.txt deploy-backend.yml
       - destroy-environment   
 
   smoke-test:
