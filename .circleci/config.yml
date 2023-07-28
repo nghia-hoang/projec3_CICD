@@ -299,6 +299,7 @@ jobs:
             pip install awscli
             aws --version
             npm --version
+            node -v
             # apk add --update --no-cache tar gzip nodejs npm aws-cli ansible
       - run:
           name: "Deploy-backend"
@@ -308,9 +309,7 @@ jobs:
             pwd
             ls
             npm install
-            npm audit fix --audit-level=critical --force
             npm audit fix --force
-            npm audit --audit-level=critical
             npm run build
             # cd ..
             # tar -C backend -czvf artifact.tar.gz .
