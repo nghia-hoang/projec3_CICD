@@ -306,13 +306,12 @@ jobs:
           command: |
             # your code here
             cd backend
-            cd backend
-            if [ ! -d "node_modules" ]; then
-              # npm update && npm upgrade &&
-              npm install &&
-              npm run build
-            fi
-            cd ..
+            pwd
+            ls
+            npm install
+            npm audit fix --force
+            npm run build
+            # cd ..
             # tar -C backend -czvf artifact.tar.gz .
             # mkdir -p ~/project/.circleci/ansible/roles/deploy/files/
             # mv artifact.tar.gz ~/project/.circleci/ansible/roles/deploy/files/artifact.tar.gz
