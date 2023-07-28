@@ -282,7 +282,7 @@ jobs:
 
   deploy-backend:
     docker:
-     - image: python:3.7-alpine3.11
+     - image: python:3.7-alpine3.1
     steps:
       - checkout
       - add_ssh_keys:
@@ -294,30 +294,24 @@ jobs:
           name: "Install-dependencies"
           command: |
             # your code here
-            # apk add --update ansible curl rsync openssh nodejs npm
-            # ansible --version
-            # pip install awscli
-            # aws --version
-            # npm --version
-            # node -v
-            apk add tar 
-            apk add ansible 
-            apk add npm 
-            apk add nodejs 
-            apk add gzip
-            apk add curl
-            pip install awscli --upgrade
+            apk add --update ansible curl rsync openssh nodejs npm
+            ansible --version
+            pip install awscli
+            aws --version
+            npm --version
+            node -v
             # apk add --update --no-cache tar gzip nodejs npm aws-cli ansible
       - run:
           name: "Deploy-backend"
           command: |
             # your code here
             cd backend
-            pwd
-            ls
-            npm install
-            npm audit fix --force
-            npm run build
+            cd backend
+            if [ ! -d "node_modules" ]; then
+              # npm update && npm upgrade &&
+              npm install &&
+              npm run build
+            fi
             # cd ..
             # tar -C backend -czvf artifact.tar.gz .
             # mkdir -p ~/project/.circleci/ansible/roles/deploy/files/
