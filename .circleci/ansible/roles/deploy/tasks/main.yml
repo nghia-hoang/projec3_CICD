@@ -9,17 +9,12 @@
     src: artifact.tar.gz
     dest: ~/backend-app
 
-- name: "Installing Node Dependencies"
-  shell: |
-    cd ~/backend-app
-    npm install
-
 - name: "Executing Node app with PM2"
   shell: |
     cd ~/backend-app/dist
     cd ../
-    npm install
-    npm run build
+    # npm install
+    # npm run build
     sudo npm install forever -g
     sudo npm install ts-node -g
     forever start -c "ts-node -r tsconfig-paths/register -r dotenv/config src/main.ts" ./  
