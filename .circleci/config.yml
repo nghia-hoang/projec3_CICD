@@ -285,7 +285,7 @@ jobs:
 
   deploy-backend:
     docker:
-     - image: python:3.7-alpine3.16
+     - image: circleci/node:13.8.0
     # env:
     #   CIRCLE_JOB_TIMEOUT: 10 
     steps:
@@ -300,13 +300,24 @@ jobs:
             # apk add --update ansible
             # apk add --update tar gzip curl
             # apk add --update openssh-client
-            apk add --update ansible curl rsync openssh nodejs npm
+            # apk add --update ansible curl rsync openssh nodejs npm
             # ansible --version
-            pip install awscli
+            # pip install awscli
             # aws --version
             # npm --version
             # node -v
             # apk add --update --no-cache tar gzip nodejs npm aws-cli ansible
+            sudo apt -y update
+            sudo apt install -y tar gzip curl unzip
+            sudo apt install -y software-properties-common
+            sudo apt install -y python3 python3-pip
+            python3 -m pip install --user ansible
+      - run:
+          name: "Install aws-cli"
+          command: |
+            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+            unzip awscliv2.zip
+            sudo ./aws/install     
       - restore_cache:
           keys: [backend-build]
       - attach_workspace:
@@ -316,15 +327,11 @@ jobs:
           command: |
             # your code here
             cd backend
-            pwd
-            ls
-            npm install
+            npm i
             npm run build
             cd ..
             tar -C backend -czvf artifact.tar.gz .
-            mkdir -p ~/project/.circleci/ansible/roles/deploy/files/
-            mv artifact.tar.gz ~/project/.circleci/ansible/roles/deploy/files/artifact.tar.gz
-            cd ~/project/.circleci/ansible
+            cd .circleci/ansible
             echo "Contents  of the inventory.txt file is -------"
             cat inventory.txt
             ansible-playbook -i inventory.txt deploy-backend.yml
