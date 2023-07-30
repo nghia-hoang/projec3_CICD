@@ -6,13 +6,13 @@
 
 - name: "Copy compressed backend folder"
   copy:
-    src: "artifact-backend.tar.gz"
-    dest: "~/server/artifact-backend.tar.gz"
+    src: "artifact.tar.gz"
+    dest: "~/server/artifact.tar.gz"
 
 - name: "Extract backend"
   unarchive:
     remote_src: yes
-    src: "~/server/artifact-backend.tar.gz"
+    src: "~/server/artifact.tar.gz"
     dest: "~/server"
 
 - name: "Run the web server"
