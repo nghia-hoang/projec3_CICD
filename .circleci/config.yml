@@ -242,7 +242,7 @@ jobs:
           command: |
             if grep -q "success" ~/project/backend/migrations.txt
             then
-              curl --insecure https://kvdb.io/MzM9zViJMyjDptFyYKvMQX/migration_${CIRCLE_WORKFLOW_ID:0:7} -d '1'
+              curl --insecure https://kvdb.io/6Gm7goALh7t85x6m4KcqvD/migration_${CIRCLE_WORKFLOW_ID:0:7} -d '1'
             fi
             # exit 1
       # - save_cache:
