@@ -307,6 +307,7 @@ jobs:
           at: ~/
       - run:
           name: Deploy backend
+          timeout: 1800
           command: |
             cd backend
             npm install
