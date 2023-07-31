@@ -25,7 +25,22 @@
       # become: true
       # raw: test -e /usr/bin/python3 || (apt -y update && apt install -y python3)
       # changed_when: false
-
+    tasks:
+    - name: Install Node.js
+      apt:
+        name: nodejs
+        state: present
+    - name: Install PM2
+      apt:
+        name: pm2
+        state: present
+    - name: Start PM2
+      pm2:
+        start: true
+        status: true
+        restart: true
+        autostart: true
+        ignore_watch: false
   environment:
     - NODE_ENV: production 
     - ENVIRONMENT: production
