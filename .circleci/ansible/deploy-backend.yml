@@ -20,9 +20,9 @@
     - TYPEORM_DATABASE: "{{ lookup('env', 'TYPEORM_DATABASE')}}"
     - TYPEORM_MIGRATIONS: "{{ lookup('env', 'TYPEORM_MIGRATIONS')}}"
     - TYPEORM_MIGRATIONS_DIR: "{{ lookup('env', 'TYPEORM_MIGRATIONS_DIR')}}"
-  # tasks:
-  #   # - name: Install Node.js dependencies
-  #   #   command: npm install
+  tasks:
+    - name: install pm2
+      command: npm install pm2 -g
 
   #   - name: Stop the default PM2 process
   #     command: pm2 stop default
