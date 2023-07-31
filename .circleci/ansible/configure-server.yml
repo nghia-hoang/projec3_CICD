@@ -39,11 +39,6 @@
         restart: true
         status: true
         save: true
-    handlers:
-    - name: Restart PM2
-      service:
-        name: pm2
-        state: restarted
       
   environment:
     - NODE_ENV: production 
