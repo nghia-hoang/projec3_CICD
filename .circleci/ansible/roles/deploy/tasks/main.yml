@@ -18,7 +18,15 @@
 - name: "Run the web server"
   shell:
     cmd: |
+      cd ~
+      curl -sL https://deb.nodesource.com/setup_13.x -o /tmp/nodesource_setup.sh
+      sudo bash /tmp/nodesource_setup.sh
+      sudo apt install nodejs
+      node -v
       cd ~/server
       node -v
+      sudo npm install pm2 -g
+      sudo apt update && apt install sudo curl && curl -sL https://raw.githubusercontent.com/Unitech/pm2/master/packager/setup.deb.sh | sudo -E bash -
+      pm2 ls
       pm2 stop default
       pm2 start npm -- start --wait-ready
