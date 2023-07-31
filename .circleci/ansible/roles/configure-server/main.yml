@@ -21,7 +21,6 @@
     state: "latest"
     update_cache: yes
 
-
 - name: "Export env"
   become: true
   shell:  |
