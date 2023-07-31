@@ -33,12 +33,12 @@
       apt:
         name: pm2
         state: present
-    - name: Start PM2
-      pm2:
-        start: true
-        restart: true
-        status: true
-        save: true
+    # - name: Start PM2
+    #   pm2:
+    #     start: true
+    #     restart: true
+    #     status: true
+    #     save: true
       
   environment:
     - NODE_ENV: production 
