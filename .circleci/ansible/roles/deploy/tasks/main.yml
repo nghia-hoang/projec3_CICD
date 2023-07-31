@@ -19,6 +19,5 @@
   shell:
     cmd: |
       cd ~/server
-      systemctl status node_exporter
       pm2 stop default
       pm2 start npm -- start --wait-ready
