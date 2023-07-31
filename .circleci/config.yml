@@ -293,6 +293,7 @@ jobs:
     docker:
       - image: python:3.7-alpine3.16
     steps:
+      - circleci build step --timeout 1800 echo "This is a build step"
       - checkout
       - add_ssh_keys:
           fingerprints:
