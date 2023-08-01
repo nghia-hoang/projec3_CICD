@@ -1,3 +1,35 @@
+# ---
+# - name: "Copy tarball"
+#   ansible.builtin.copy:
+#     src: /root/project/artifact.tar.gz 
+#     dest: /home/ubuntu
+#     owner: ubuntu
+#     group: ubuntu
+#     mode: 0755
+
+# - name: "Extract tarball"
+#   become: yes
+#   shell: |
+#     cd /home/ubuntu
+#     mkdir backend
+#     cd backend
+#     tar -xvf /home/ubuntu/artifact.tar.gz
+
+# - name: "Start application"
+#   become: yes
+#   shell: |
+#     cd ~
+#     curl -sL https://deb.nodesource.com/setup_16.x -o /tmp/nodesource_setup.sh
+#     sudo bash /tmp/nodesource_setup.sh
+#     sudo apt install nodejs -y
+#     sudo apt install npm -y
+#     node -v
+#     npm -v
+#     sudo npm install pm2 -g
+#     cd /home/ubuntu/backend
+#     npm install
+#     pm2 stop default
+#     pm2 start npm -- start
 - name: "Creates directory"
   file:
     path: "~/server"
@@ -6,7 +38,7 @@
 
 - name: "Copy compressed backend folder"
   copy:
-    src: "artifact.tar.gz"
+    src: " /root/project/artifact.tar.gz"
     dest: "~/server/artifact.tar.gz"
 
 - name: "Extract backend"

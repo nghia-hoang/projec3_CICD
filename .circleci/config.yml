@@ -10,7 +10,7 @@ commands:
           command: |
              # Use the AWS CLI to delete the CloudFormation stacks
               aws s3 rm "s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7}" --recursive
-              # aws cloudformation delete-stack --stack-name udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}
+              aws cloudformation delete-stack --stack-name udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}
               aws cloudformation delete-stack --stack-name udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}
               # exit 1
 
@@ -137,8 +137,8 @@ jobs:
           name: Install Dependencies
           command: |
             cat .circleci/ansible/inventory.txt
-            ls ~/projec3_CICD/.circleci/ansible/
-            cat ~/projec3_CICD/.circleci/ansible/inventory.txt
+            ls ~/project/.circleci/ansible/
+            cat ~/project/.circleci/ansible/inventory.txt
             yum -y install tar gzip jq npm
       - run:
           name: "Ensure-back-end-infrastructure-exists"
@@ -165,9 +165,9 @@ jobs:
             EC2_PUBLIC_IP=$(aws ec2 describe-instances --filters "Name=tag:project,Values=udapeople" --query "Reservations[*].Instances[*].PublicIpAddress" --output text)
 
             # Append the IP to the inventory.txt file
-            echo $EC2_PUBLIC_IP >> ~/projec3_CICD/.circleci/ansible/inventory.txt
+            echo $EC2_PUBLIC_IP >> ~/project/.circleci/ansible/inventory.txt
             # echo "your-instance-name ansible_host=$EC2_PUBLIC_IP ansible_user=ubuntu" >> .circleci/ansible/inventory.txt
-            cat ~/projec3_CICD/.circleci/ansible/inventory.txt
+            cat ~/project/.circleci/ansible/inventory.txt
             # Persist the modified inventory file to the workspace
             # cp .circleci/ansible/inventory.txt $HOME/workspace/inventory.txt
             # # exit 1
@@ -208,8 +208,8 @@ jobs:
             echo TYPEORM_PORT=$TYPEORM_PORT >> backend/.env
             echo TYPEORM_USERNAME=$TYPEORM_USERNAME >> backend/.env
             cat backend/.env
-            cat ~/projec3_CICD/.circleci/ansible/inventory.txt
-            ansible-playbook -i ~/projec3_CICD/.circleci/ansible/inventory.txt ~/projec3_CICD/.circleci/ansible/configure-server.yml
+            cat ~/project/.circleci/ansible/inventory.txt
+            ansible-playbook -i ~/project/.circleci/ansible/inventory.txt ~/project/.circleci/ansible/configure-server.yml
       - persist_to_workspace:
           root: ~/
           paths:
@@ -240,7 +240,7 @@ jobs:
       - run:
           name: Send migration results to kvdb
           command: |
-            if grep -q "success" ~/projec3_CICD/backend/migrations.txt
+            if grep -q "success" ~/project/backend/migrations.txt
             then
               curl --insecure https://kvdb.io/6Gm7goALh7t85x6m4KcqvD/migration_${CIRCLE_WORKFLOW_ID:0:7} -d '1'
             fi
@@ -314,7 +314,7 @@ jobs:
             npm run build
             cd ..
             tar -C backend -czvf artifact.tar.gz .
-            mkdir -p ~/projec3_CICD/.circleci/ansible/roles/deploy/files/
+            mkdir -p ~/project/.circleci/ansible/roles/deploy/files/
             mv artifact.tar.gz .circleci/ansible/roles/deploy/files/artifact.tar.gz
             cd .circleci/ansible
             echo "Contents of the inventory.txt file is ------$(cat inventory.txt)"
