@@ -25,8 +25,8 @@
       sudo apt install npm -y
       node -v
       npm -v
-      cd ~/server
       sudo npm install pm2 -g
+      cd ~/server/dist
       pm2 ls
       pm2 stop default
-      pm2 start npm -- start --wait-ready
+      pm2 start main.js
