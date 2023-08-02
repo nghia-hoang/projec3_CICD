@@ -27,5 +27,5 @@
       npm -v
       sudo npm install pm2 -g
       cd ~/server
-      pm2 start npm -- run "start:dev"
+      pm2 start npm -- run "start:prod"
       pm2 ls

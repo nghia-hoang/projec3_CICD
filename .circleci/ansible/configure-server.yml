@@ -33,7 +33,6 @@
       become: true
       shell:  |
         touch /etc/profile.d/env.sh
-        echo export TYPEORM_HOST=$TYPTYPEORM_HOST >> /etc/profile.d/env.sh
         echo export TYPEORM_CONNECTION=$TYPEORM_CONNECTION >> /etc/profile.d/env.sh
         echo export TYPEORM_ENTITIES=$TYPEORM_ENTITIES >> /etc/profile.d/env.sh
         echo export TYPEORM_HOST=$TYPEORM_HOST >> /etc/profile.d/env.sh
