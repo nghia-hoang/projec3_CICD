@@ -519,7 +519,7 @@ jobs:
             OldWorkflow=$(cat OldWorkflow.txt)
             echo "OldWorkflow = ${OldWorkflow}"
             echo "CIRCLE_WORKFLOW_ID = ${CIRCLE_WORKFLOW_ID:0:7}"
-            if [[ "${OldWorkflow}" != ${CIRCLE_WORKFLOW_ID:0:7} ]]
+            if [[ "${OldWorkflow}" != ${CIRCLE_WORKFLOW_ID:0:7} ]] then
               aws s3 rm "s3://udapeople-${OldWorkflow}" --recursive
               sleep 30
               aws cloudformation delete-stack --region us-east-1 --stack-name "UdaPeople-BackEnd-${OldWorkflow}" 
