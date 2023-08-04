@@ -168,7 +168,8 @@ jobs:
           name: "Add-back-end-ip-to-ansible-inventory "
           command: |
             # Fetch the public IP of the EC2 instance
-            EC2_PUBLIC_IP=$(aws ec2 describe-instances --filters "Name=tag:project,Values=udapeople" --query "Reservations[*].Instances[*].PublicIpAddress" --output text)
+            #  "Name=tag:project,Values=udapeople"
+            EC2_PUBLIC_IP=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID:0:7}" --query "Reservations[*].Instances[*].PublicIpAddress" --output text)
 
             # Append the IP to the inventory.txt file
             echo $EC2_PUBLIC_IP >> ~/project/.circleci/ansible/inventory.txt
@@ -516,15 +517,19 @@ jobs:
           name: "Get-old-stack-workflow-id"
           command: |
             ## Fetch the Old workflow ID
+            cat OldWorkflow.txt
             OldWorkflow=$(cat OldWorkflow.txt)
             echo "OldWorkflow = ${OldWorkflow}"
             echo "CIRCLE_WORKFLOW_ID = ${CIRCLE_WORKFLOW_ID:0:7}"
             if (( "${OldWorkflow}" != ${CIRCLE_WORKFLOW_ID:0:7} ))
               then
+                echo "delete process"
               aws s3 rm "s3://udapeople-${OldWorkflow}" --recursive
               sleep 30
               aws cloudformation delete-stack --region us-east-1 --stack-name "UdaPeople-BackEnd-${OldWorkflow}" 
               aws cloudformation delete-stack --region us-east-1 --stack-name "UdaPeople-FrontEnd-${OldWorkflow}" 
+              else
+                echo "can not clean up"
             fi
 
 
