@@ -406,7 +406,13 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "Get-old-stack-workflow-id"
+          name: Install dependencies - tar gzip
+          command: |
+            yum -y install tar gzip
+      - attach_workspace:
+          at: ~/
+      - run:
+          name: "delete old"
           command: |
             ## Fetch the Old workflow ID
             cd ~/project
