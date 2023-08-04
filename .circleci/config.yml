@@ -33,7 +33,7 @@ commands:
             echo $SUCCESS
             ## Logic for reverting the database state
             if (( $SUCCESS == 1 ));
-            then
+              then
                 cd ~/project/backend
                 npm install
                 npm run migration:revert
@@ -519,7 +519,8 @@ jobs:
             OldWorkflow=$(cat OldWorkflow.txt)
             echo "OldWorkflow = ${OldWorkflow}"
             echo "CIRCLE_WORKFLOW_ID = ${CIRCLE_WORKFLOW_ID:0:7}"
-            if [[ "${OldWorkflow}" != ${CIRCLE_WORKFLOW_ID:0:7} ]] then
+            if (( "${OldWorkflow}" != ${CIRCLE_WORKFLOW_ID:0:7} ))
+              then
               aws s3 rm "s3://udapeople-${OldWorkflow}" --recursive
               sleep 30
               aws cloudformation delete-stack --region us-east-1 --stack-name "UdaPeople-BackEnd-${OldWorkflow}" 
