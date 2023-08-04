@@ -336,100 +336,6 @@ jobs:
       - revert-migrations:
           id: ${CIRCLE_WORKFLOW_ID:0:7}
 
-  # deploy-backend:
-  #   docker:
-  #     - image: circleci/node:13.8.0
-  #   steps:
-  #     - checkout
-  #     - add_ssh_keys:
-  #         fingerprints:
-  #           - '79:2b:22:7b:54:10:38:a4:9c:5f:26:09:46:da:bf:f1'
-  #     - run:
-  #         name: Install dependencies
-  #         command: |
-  #           sudo apt -y update
-  #           sudo apt install -y tar gzip curl unzip
-  #           sudo apt install -y software-properties-common
-  #           sudo apt install -y python3 python3-pip
-  #           python3 -m pip install --user ansible
-  #     - run:
-  #         name: Install aws-cli
-  #         command: |
-  #           curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-  #           unzip awscliv2.zip
-  #           sudo ./aws/install
-  #     - restore_cache:
-  #         keys: [backend-build]
-  #     - attach_workspace:
-  #         at: ~/      
-  #     - run:
-  #         name: Deploy backend
-  #         command: |
-  #           cd backend
-  #           npm i
-  #           npm run build
-  #           cd ..
-  #           tar -C backend -czvf artifact.tar.gz .
-  #           cd .circleci/ansible
-  #           echo "Contents  of the inventory.txt file is -------"
-  #           cat inventory.txt
-  #           ansible-playbook -i inventory.txt deploy-backend.yml
-  #     - destroy-environment
-  
-  # deploy-backend:
-  #   docker:
-  #    - image: circleci/node:13.8.0
-  #   # env:
-  #   #   CIRCLE_JOB_TIMEOUT: 10 
-  #   steps:
-  #     - checkout
-  #     - add_ssh_keys:
-  #         fingerprints: 
-  #           - '79:2b:22:7b:54:10:38:a4:9c:5f:26:09:46:da:bf:f1'
-  #     - run:
-  #         name: "Install-dependencies"
-  #         command: |
-  #           # your code here
-  #           # apk add --update ansible
-  #           # apk add --update tar gzip curl
-  #           # apk add --update openssh-client
-  #           # apk add --update ansible curl rsync openssh nodejs npm
-  #           # ansible --version
-  #           # pip install awscli
-  #           # aws --version
-  #           # npm --version
-  #           # node -v
-  #           # apk add --update --no-cache tar gzip nodejs npm aws-cli ansible
-  #           sudo apt -y update
-  #           sudo apt install -y tar gzip curl unzip
-  #           sudo apt install -y software-properties-common
-  #           sudo apt install -y python3 python3-pip
-  #           python3 -m pip install --user ansible
-  #     - run:
-  #         name: "Install aws-cli"
-  #         command: |
-  #           curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-  #           unzip awscliv2.zip
-  #           sudo ./aws/install     
-  #     - restore_cache:
-  #         keys: [backend-build]
-  #     - attach_workspace:
-  #         at: ~/
-  #     - run:
-  #         name: "Deploy-backend"
-  #         command: |
-  #           # your code here
-  #           cd backend
-  #           npm i
-  #           npm run build
-  #           cd ..
-  #           tar -C backend -czvf artifact.tar.gz .
-  #           cd .circleci/ansible
-  #           echo "Contents  of the inventory.txt file is -------"
-  #           cat inventory.txt
-  #           ansible-playbook -i inventory.txt deploy-backend.yml
-  #     # - destroy-environment   
-
   smoke-test:
     docker:
       - image: python:3.7-alpine3.11  
@@ -508,7 +414,7 @@ jobs:
           id: ${CIRCLE_WORKFLOW_ID:0:7}  
   cleanup:
     docker:
-     - image: circleci/node:13.8.0
+     - image: amazon/aws-cli
     steps:
       - checkout
       - attach_workspace:
