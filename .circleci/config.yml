@@ -34,7 +34,7 @@ commands:
             ## Logic for reverting the database state
             if [ $SUCCESS == 1 ];
               then
-                cd ~/project/backend
+                cd backend
                 npm install
                 npm run migration:revert
                 echo "Ran migration:revert"
@@ -348,6 +348,8 @@ jobs:
             # your code here
             apk add --update curl nodejs npm
             pip install awscli
+      - attach_workspace:
+          at: ~/
       - run:
           name: "Backend smoke test."
           command: |
