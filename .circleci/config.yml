@@ -394,24 +394,26 @@ jobs:
           name: "Update-cloudfront-distribution"
           command: |
             # your code here
-             export OldWorkflowID=$(aws cloudformation --region us-east-1 \
-               list-exports --query "Exports[?Name==\`WorkflowID\`].Value" \
-               --no-paginate --output text)
-            echo "OldWorkflowID = ${OldWorkflowID}"
-            echo "CIRCLE_WORKFLOW_ID = ${CIRCLE_WORKFLOW_ID:0:7}"
-            echo ${OldWorkflowID} > OldWorkflow.txt
-            
+            #  export OldWorkflowID=$(aws cloudformation --region us-east-1 \
+            #    list-exports --query "Exports[?Name==\`WorkflowID\`].Value" \
+            #    --no-paginate --output text)
+            # echo "OldWorkflowID = ${OldWorkflowID}"
+            # echo "CIRCLE_WORKFLOW_ID = ${CIRCLE_WORKFLOW_ID:0:7}"
+            # echo ${OldWorkflowID} > OldWorkflow.txt
             aws cloudformation deploy \
-               --region us-east-1 \
-               --template-file .circleci/files/cloudfront.yml \
-               --stack-name InitialStack \
-               --parameter-overrides WorkflowID="${CIRCLE_WORKFLOW_ID:0:7}" \
-               --tags project=udapeople
+            --template-file .circleci/files/cloudfront.yml \
+            --parameter-overrides WorkflowID="${CIRCLE_WORKFLOW_ID:0:7}" \
+            --stack-name InitialStack
+            # aws cloudformation deploy \
+            #    --template-file .circleci/files/cloudfront.yml \
+            #    --stack-name InitialStack \
+            #    --parameter-overrides WorkflowID="${CIRCLE_WORKFLOW_ID:0:7}" \
+            #    --tags project=udapeople
       # Here's where you will add some code to rollback on failure
-      - persist_to_workspace:
-          root: ~/
-          paths:
-            - project/OldWorkflow.txt
+      # - persist_to_workspace:
+      #     root: ~/
+      #     paths:
+      #       - project/OldWorkflow.txt
       - destroy-environment
       - revert-migrations:
           id: ${CIRCLE_WORKFLOW_ID:0:7}  
