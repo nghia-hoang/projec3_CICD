@@ -240,7 +240,7 @@ jobs:
       - run:
           name: Send migration results to kvdb
           command: |
-            if grep -q "has been executed successfully." ~/project/backend/migrations.txt
+            if grep -q "No migrations are pending" ~/project/backend/migrations.txt
             then
               echo "Successful migration"
               # Using kvdb.io
