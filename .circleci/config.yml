@@ -242,11 +242,11 @@ jobs:
             then
               echo "Successful migration"
               # Using kvdb.io
-              curl https://kvdb.io/6Gm7goALh7t85x6m4KcqvD/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
+              curl --insecure https://kvdb.io/6Gm7goALh7t85x6m4KcqvD/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
             else  
               echo "Migration not necessary or not successful"
               # Using kvdb.io
-              curl https://kvdb.io/6Gm7goALh7t85x6m4KcqvD/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '0'
+              curl --insecure https://kvdb.io/6Gm7goALh7t85x6m4KcqvD/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '0'
             fi
 
             # if grep -q "success" ~/project/backend/migrations.txt
